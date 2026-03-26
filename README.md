@@ -6,6 +6,8 @@ Deploy a model as an inference service via [dstack](https://dstack.ai/), continu
 
 Inspired by [karpathy/autoresearch](https://github.com/karpathy/autoresearch). Where autoresearch lets an AI agent iterate on training code overnight, autodebug lets an AI agent iterate on inference deployment configuration: tuning batch sizes, caching strategies, parallelism, and engine parameters to minimize latency and maximize throughput.
 
+Read more in the [blog post](https://graphsignal.com/blog/autodebug-telemetry-driven-inference-optimization-loop/).
+
 ## How it works
 
 The agent follows an optimization loop defined in `program.md`:
@@ -34,11 +36,10 @@ graphsignal-debug login
 
 ### 2. dstack
 
-[dstack](https://dstack.ai/) manages cloud infrastructure for inference services. Set up your dstack project and log in:
+[dstack](https://dstack.ai/) manages cloud infrastructure for inference services. Follow the [dstack installation docs](https://dstack.ai/docs/installation/) to set up your dstack project.
 
 ```bash
 uv tool install dstack
-dstack login
 ```
 
 ### 3. Agent skills
