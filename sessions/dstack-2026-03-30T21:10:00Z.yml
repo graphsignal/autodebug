@@ -13,10 +13,12 @@ commands:
       --model-path $MODEL_ID \
       --port 8000 \
       --trust-remote-code \
-      --quantization fp8 \
+      --num-continuous-decode-steps 16 \
       --enable-mixed-chunk \
-      --num-continuous-decode-steps 5 \
-      --mem-fraction-static 0.5
+      --schedule-policy lpm \
+      --speculative-algorithm ngram \
+      --speculative-num-draft-tokens 3 \
+      --speculative-num-steps 3
 
 port: 8000
 model: Qwen/Qwen1.5-0.5B-Chat

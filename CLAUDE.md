@@ -41,6 +41,12 @@ dstack ps -v
 dstack logs <service-name>
 ```
 
+Get service endpoint and auth token:
+```bash
+DSTACK_TOKEN=$(dstack config show --project <project> --json 2>/dev/null | jq -r '.token // empty' || echo "")
+SERVICE_URL=$(dstack run get <service-name> --json | jq -r '.service.url')
+```
+
 Fetch Graphsignal telemetry for a time window:
 ```bash
 graphsignal-debug fetch --start <ISO> --end <ISO>
@@ -49,7 +55,8 @@ graphsignal-debug fetch --start <ISO> --end <ISO>
 Benchmark an endpoint:
 ```bash
 curl -s -w "\n%{time_starttransfer} %{time_total}" \
-  -X POST <ENDPOINT>/v1/chat/completions \
+  -X POST "${SERVICE_URL}v1/chat/completions" \
+  -H "Authorization: Bearer $DSTACK_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"model":"<MODEL>","messages":[{"role":"user","content":"<PROMPT>"}],"stream":true}'
 ```
@@ -64,6 +71,12 @@ The project has no source code — it is purely configuration and agent orchestr
 - `sessions/dstack-<ISO>.yml` — created by agent per iteration; complete deployable configs with applied optimizations
 
 **Optimization loop** (from `program.md`): benchmark → check logs → fetch telemetry → analyze → identify improvements → write `sessions/debug-<ISO>.md` → write `sessions/dstack-<ISO>.yml` → deploy → repeat forever.
+
+**NEVER STOP**: Once the optimization loop has begun, do NOT pause to ask the human if you should continue. The loop runs until the human interrupts you, period.
+
+## Session log format
+
+Each `sessions/debug-<ISO>.md` must include an **Analysis** section citing exact data from Graphsignal — specific profiled functions (e.g. `sglang.scheduler.Scheduler.run_batch`), span counters (e.g. `sglang.latency.time_to_first_token`), span attributes (e.g. `sglang.startup.*`), and Prometheus metrics (e.g. `sglang.cache_hit_rate`) with their values, so reasoning is directly traceable to raw telemetry.
 
 ## Inference metrics
 
