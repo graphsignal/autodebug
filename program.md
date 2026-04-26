@@ -8,19 +8,19 @@ To set up a new optimization session, work with the user to:
 
 1. **Initialize skills**: Download and read the following SKILL.md files for full context:
    ```bash
-   mkdir -p ~/.claude/skills/graphsignal-sdk ~/.claude/skills/graphsignal-debug ~/.claude/skills/dstack
+   mkdir -p ~/.claude/skills/graphsignal-sdk ~/.claude/skills/graphsignal-context ~/.claude/skills/dstack
    curl -sL https://raw.githubusercontent.com/graphsignal/graphsignal-python/main/SKILL.md -o ~/.claude/skills/graphsignal-sdk/SKILL.md
-   curl -sL https://raw.githubusercontent.com/graphsignal/graphsignal-debug/main/SKILL.md -o ~/.claude/skills/graphsignal-debug/SKILL.md
+   curl -sL https://raw.githubusercontent.com/graphsignal/graphsignal-context/main/SKILL.md -o ~/.claude/skills/graphsignal-context/SKILL.md
    curl -sL https://raw.githubusercontent.com/dstackai/dstack/master/skills/dstack/SKILL.md -o ~/.claude/skills/dstack/SKILL.md
    ```
    Read each SKILL.md to understand the tools:
    - `graphsignal-sdk` — Graphsignal SDK for inference observability (profiling, tracing, metrics).
-   - `graphsignal-debug` — CLI to fetch debug context (profiles, errors, traces) for a time range.
+   - `graphsignal-context` — CLI to query signals (profiles, errors, traces) for a time range.
    - `dstack` — Cloud infrastructure for deploying inference services.
 
 2. **Verify prerequisites**: Confirm the user has logged in to both services:
    ```bash
-   graphsignal-debug login
+   graphsignal-context login
    dstack login
    ```
    If either is not configured, instruct the user to run the respective login command before proceeding.
@@ -66,9 +66,9 @@ LOOP FOREVER:
 
 2. **Check dstack logs**: Run `dstack logs <service-name>` to verify the inference engine is running without errors. Look for OOM events, CUDA errors, model loading failures, or configuration warnings.
 
-3. **Fetch telemetry**: Use `graphsignal-debug` to fetch performance data for the benchmark window:
+3. **Fetch telemetry**: Use `graphsignal-context` to fetch performance data for the benchmark window:
    ```bash
-   graphsignal-debug fetch --start <START_ISO> --end <END_ISO>
+   graphsignal-context signals --start <START_ISO> --end <END_ISO>
    ```
    The output includes profiling data, traces, metrics, and errors. Use this as the primary source for performance analysis.
 

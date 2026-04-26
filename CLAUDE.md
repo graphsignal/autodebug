@@ -11,15 +11,15 @@ The agent's operating instructions are in `program.md`. Read that file first.
 ## Prerequisites
 
 ```bash
-uv tool install graphsignal-debug && graphsignal-debug login
+uv tool install graphsignal-context && graphsignal-context login
 uv tool install dstack && dstack login
 ```
 
 Download agent skill files (also read each one at session start):
 ```bash
-mkdir -p ~/.claude/skills/graphsignal-sdk ~/.claude/skills/graphsignal-debug ~/.claude/skills/dstack
+mkdir -p ~/.claude/skills/graphsignal-sdk ~/.claude/skills/graphsignal-context ~/.claude/skills/dstack
 curl -sL https://raw.githubusercontent.com/graphsignal/graphsignal-python/main/SKILL.md -o ~/.claude/skills/graphsignal-sdk/SKILL.md
-curl -sL https://raw.githubusercontent.com/graphsignal/graphsignal-debug/main/SKILL.md -o ~/.claude/skills/graphsignal-debug/SKILL.md
+curl -sL https://raw.githubusercontent.com/graphsignal/graphsignal-context/main/SKILL.md -o ~/.claude/skills/graphsignal-context/SKILL.md
 curl -sL https://raw.githubusercontent.com/dstackai/dstack/master/skills/dstack/SKILL.md -o ~/.claude/skills/dstack/SKILL.md
 ```
 
@@ -49,7 +49,7 @@ SERVICE_URL=$(dstack run get <service-name> --json | jq -r '.service.url')
 
 Fetch Graphsignal telemetry for a time window:
 ```bash
-graphsignal-debug fetch --start <ISO> --end <ISO>
+graphsignal-context signals --start <ISO> --end <ISO>
 ```
 
 Benchmark an endpoint:

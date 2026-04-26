@@ -30,8 +30,8 @@ Each iteration is logged to a separate `sessions/debug-<ISO>.md` file (findings 
 Install the debug CLI and log in:
 
 ```bash
-uv tool install graphsignal-debug
-graphsignal-debug login
+uv tool install graphsignal-context
+graphsignal-context login
 ```
 
 ### 2. dstack
@@ -47,9 +47,9 @@ uv tool install dstack
 Download the skill files so the agent has full context:
 
 ```bash
-mkdir -p ~/.claude/skills/graphsignal-python ~/.claude/skills/graphsignal-debug ~/.claude/skills/dstack
+mkdir -p ~/.claude/skills/graphsignal-python ~/.claude/skills/graphsignal-context ~/.claude/skills/dstack
 curl -sL https://raw.githubusercontent.com/graphsignal/graphsignal-python/main/SKILL.md -o ~/.claude/skills/graphsignal-python/SKILL.md
-curl -sL https://raw.githubusercontent.com/graphsignal/graphsignal-debug/main/SKILL.md -o ~/.claude/skills/graphsignal-debug/SKILL.md
+curl -sL https://raw.githubusercontent.com/graphsignal/graphsignal-context/main/SKILL.md -o ~/.claude/skills/graphsignal-context/SKILL.md
 curl -sL https://raw.githubusercontent.com/dstackai/dstack/master/skills/dstack/SKILL.md -o ~/.claude/skills/dstack/SKILL.md
 ```
 
